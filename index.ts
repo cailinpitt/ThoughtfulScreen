@@ -8,7 +8,7 @@ enum Stack {
   Rejected = 'REJECTED',
 }
 
-function sort(width: number, height: number, length: number, mass: number): string {
+export function sort(width: number, height: number, length: number, mass: number): string {
     const volume: number = width * height * length;
 
     const isBulky = volume >= VOLUME_LIMIT || width >= DIMENSION_LIMIT || height >= DIMENSION_LIMIT || length >= DIMENSION_LIMIT;
