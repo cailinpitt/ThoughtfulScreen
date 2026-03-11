@@ -5,6 +5,15 @@ function expect(actual: any, expected: any, label: string) {
     console.log(`${pass ? '✓' : '✗'} ${label}${pass ? '' : ` — got "${actual}", expected "${expected}"`}`);
 }
 
+function expectThrows(fn: () => void, label: string) {
+    try {
+        fn();
+        console.log(`✗ ${label} — expected an error but none was thrown`);
+    } catch {
+        console.log(`✓ ${label}`);
+    }
+}
+
 // STANDARD
 expect(sort(10, 10, 10, 5),   'STANDARD', 'small package, light');
 expect(sort(99, 99, 99, 19),  'STANDARD', 'just under all limits');
@@ -35,3 +44,7 @@ expect(sort(200, 1, 1, 25),  'REJECTED', 'large dimension and heavy');
 
 // REJECTED — bulky by both conditions + heavy
 expect(sort(150, 150, 150, 25), 'REJECTED', 'oversized dimensions and volume and heavy');
+
+// invalid inputs
+expectThrows(() => sort('jel' as any, 10, 10, 5), 'throws on non-number width');
+expectThrows(() => sort(10, 10, 10, NaN),          'throws on NaN');
